@@ -4,8 +4,19 @@ const env = 'development';
 const config = require('./knexfile.js')[env];
 const knex = require('knex')(config);
 
-const sql = knex('movies').toString();
+// first example
+// const sql = knex('movies').toString();
+//
+// console.log(sql);
+//
+// knex.destroy();
 
-console.log(sql);
-
-knex.destroy();
+knex('movies').then((result) => {
+  console.log(result);
+  knex.destroy();
+})
+.catch((err) => {
+  console.error(err);
+  knex.destroy();
+  process.exit(1);
+});
